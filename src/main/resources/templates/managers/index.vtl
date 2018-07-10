@@ -6,23 +6,54 @@
 
 <div class = "container">
 
+
+
     <table>
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Department</th>
             <th>Budget</th>
-            <th>ID</th>
+            <th>Salary</th>
         </tr>
         #foreach($manager in $managers)
+
         <tr>
-            <td>$manager.getFirstName()</td>
-            <td>$manager.getLastName()</td>
-            <td>$manager.getDepartment().getTitle()</td>
-            <td>$manager.getBudget()</td>
-            <td>$manager.getId()</td>
+            <form action="/managers/$manager.getId()/update" method="post">
+            <td>
+                <input type="inputBox" type = "text" name = "firstName" id = "firstName" value = "$manager.getFirstName()">
+            </td>
+            <td>
+                <input type="inputBox" type = "text" name = "lastName" id = "lastName" value = "$manager.getLastName()">
+            </td>
+            <td>
+                <select name="department" id="department">
+                    #foreach ($department in $departments)
+                    <option value="$department.getId()" #if ($department.getId() == $manager.getDepartment().getId())selected#end>$department.getTitle()</option>
+                    #end
+                </select>
+            </td>
+            <td>
+                <input type="inputBox" type = "number" name = "budget" id = "budget" value = "$manager.getBudget()">
+            </td>
+            <td>
+                <input type="inputBox" type = "number" name = "salary" id = "salary" value = '$manager.getSalary()'>
+            </td>
+            <td>
+
+                    <input type="submit" name = "update" value = "update">
+            </td>
+            </form>
+            <form action="/managers/$manager.getId()/delete" method="post">
+                <td>
+                    <input type="submit" name = "delete" value = "delete">
+                </td>
+            </form>
         </tr>
         #end
     </table>
+
+
+
 
 </div>
